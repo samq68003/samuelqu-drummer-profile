@@ -1,415 +1,331 @@
-import type {
-  ContactField,
-  EventCard,
-  ImageToken,
-  LessonCard,
-  LinkToken,
-  StatToken,
-  StoryCard,
-  TestimonialCard,
-  TextToken,
-  VideoToken,
-} from "../types/content";
+import type { ImageToken, LinkToken, TextToken } from "../types/content";
 
-const text = (
-  id: string,
-  value: string,
-  kind?: TextToken["kind"],
-): TextToken => ({ id, value, kind });
-
+const text = (id: string, value: string): TextToken => ({ id, value });
 const image = (
   id: string,
-  alt: string,
-  ratio: ImageToken["ratio"] = "landscape",
-): ImageToken => ({ id, alt, ratio });
-
+  label: string,
+  shape: ImageToken["shape"] = "wide",
+): ImageToken => ({ id, label, shape });
 const link = (
   id: string,
   label: string,
   href: string,
   externalUrl?: string,
-  note?: string,
-): LinkToken => ({ id, label, href, externalUrl, note });
-
-const video = (id: string, title: string, posterImageId?: string): VideoToken => ({
-  id,
-  title,
-  posterImageId,
-});
+): LinkToken => ({ id, label, href, externalUrl });
 
 export const siteMeta = {
-  siteName: "Site Replica Placeholder System",
-  siteId: "site.meta.name",
-  badge: text("site.meta.badge", "Replica with editable identifiers", "label"),
-  phone: text("site.meta.phone", "[placeholder phone number]", "label"),
-  logo: text("site.meta.logo", "[site logo placeholder]", "label"),
+  siteName: text("site.meta.name", "[site.meta.name]"),
+  phone: text("site.meta.phone", "[site.meta.phone]"),
+  cta: link("site.meta.cta", "[site.meta.cta]", "/get-in-touch"),
+  language: text("site.meta.language", "EN"),
 };
 
 export const navLinks: LinkToken[] = [
-  link("nav.home", "Home placeholder", "/"),
-  link("nav.lessons", "Lessons placeholder", "/lessons"),
-  link("nav.about", "About placeholder", "/about-me"),
-  link("nav.reviews", "Testimonials placeholder", "/reviews"),
-  link("nav.live", "Live placeholder", "/live"),
-  link("nav.contact", "Contact placeholder", "/get-in-touch"),
+  link("nav.home", "Home", "/"),
+  link("nav.lessons", "Lessons", "/lessons"),
+  link("nav.about", "About Me", "/about-me"),
+  link("nav.reviews", "Testimonials", "/reviews"),
+  link("nav.live", "Live", "/live"),
 ];
 
-export const primaryCta = link(
-  "global.cta.primary",
-  "Primary CTA placeholder",
-  "/get-in-touch",
-);
-
-export const footerLinks: LinkToken[] = [
-  link(
+export const footerContent = {
+  intro: text("footer.intro", "[footer.intro]"),
+  location: text("footer.location", "[footer.location]"),
+  acknowledgment: text("footer.acknowledgment", "[footer.acknowledgment]"),
+  phone: text("footer.phone", "[footer.phone]"),
+  email: text("footer.email", "[footer.email]"),
+  instagram: link(
     "footer.social.instagram",
-    "Instagram placeholder",
+    "Instagram",
     "/connect/instagram",
-    "https://instagram.com/your-account",
-    "Replace `href` with `externalUrl` when you want a live outbound social link.",
+    "https://instagram.com/placeholder",
   ),
-  link(
-    "footer.social.facebook",
-    "Facebook placeholder",
-    "/connect/facebook",
-    "https://facebook.com/your-page",
-    "Replace `href` with `externalUrl` when you want a live outbound social link.",
-  ),
-  link(
-    "footer.resource.drive",
-    "Media drive placeholder",
+  drive: link(
+    "footer.social.drive",
+    "Drive",
     "/connect/media-library",
-    "https://drive.google.com/drive/folders/placeholder-folder-id",
-    "Use this pattern for any future external resources or booking links.",
+    "https://drive.google.com/drive/folders/placeholder",
   ),
-];
+  facebook: link(
+    "footer.social.facebook",
+    "Facebook",
+    "/connect/facebook",
+    "https://facebook.com/placeholder",
+  ),
+};
 
 export const homePage = {
-  routeId: "page.home",
-  hero: {
-    eyebrow: text("home.hero.eyebrow", "Placeholder eyebrow for hero section", "eyebrow"),
-    title: text("home.hero.title", "Placeholder hero title with editable identifier", "title"),
-    body: text(
-      "home.hero.body",
-      "Placeholder supporting copy for the hero area. Replace this token later with real positioning text.",
-      "body",
-    ),
-    primaryLink: link("home.hero.primary_link", "Hero CTA placeholder", "/get-in-touch"),
-    secondaryLink: link("home.hero.secondary_link", "Hero secondary CTA placeholder", "/lessons"),
-    mediaPrimary: image("home.hero.media.primary", "Primary hero image placeholder", "portrait"),
-    mediaSecondary: image("home.hero.media.secondary", "Secondary hero image placeholder", "square"),
-    mediaAccent: image("home.hero.media.accent", "Accent hero image placeholder", "landscape"),
-  },
-  stats: [
-    { id: "home.stats.01", value: "[value 01]", label: "[home stat label 01]" },
-    { id: "home.stats.02", value: "[value 02]", label: "[home stat label 02]" },
-    { id: "home.stats.03", value: "[value 03]", label: "[home stat label 03]" },
-    { id: "home.stats.04", value: "[value 04]", label: "[home stat label 04]" },
-  ] satisfies StatToken[],
-  story: {
-    eyebrow: text("home.story.eyebrow", "Placeholder section eyebrow", "eyebrow"),
-    title: text("home.story.title", "Placeholder story section title", "title"),
-    body: text(
-      "home.story.body",
-      "Placeholder narrative copy describing the promise, experience, or method shown on the original site.",
-      "body",
-    ),
-    imageLeft: image("home.story.media.left", "Left story image placeholder", "portrait"),
-    imageRight: image("home.story.media.right", "Right story image placeholder", "portrait"),
-  },
-  highlightCards: [
-    {
-      id: "home.highlights.01",
-      title: text("home.highlights.01.title", "Placeholder highlight title 01", "title"),
-      body: text(
-        "home.highlights.01.body",
-        "Placeholder paragraph for highlight card 01.",
-        "body",
-      ),
-      iconLabel: text("home.highlights.01.icon", "Icon placeholder 01", "label"),
-    },
-    {
-      id: "home.highlights.02",
-      title: text("home.highlights.02.title", "Placeholder highlight title 02", "title"),
-      body: text(
-        "home.highlights.02.body",
-        "Placeholder paragraph for highlight card 02.",
-        "body",
-      ),
-      iconLabel: text("home.highlights.02.icon", "Icon placeholder 02", "label"),
-    },
-    {
-      id: "home.highlights.03",
-      title: text("home.highlights.03.title", "Placeholder highlight title 03", "title"),
-      body: text(
-        "home.highlights.03.body",
-        "Placeholder paragraph for highlight card 03.",
-        "body",
-      ),
-      iconLabel: text("home.highlights.03.icon", "Icon placeholder 03", "label"),
-    },
-  ] satisfies LessonCard[],
-  gallery: [
-    image("home.gallery.01", "Gallery image placeholder 01", "landscape"),
-    image("home.gallery.02", "Gallery image placeholder 02", "wide"),
-    image("home.gallery.03", "Gallery image placeholder 03", "square"),
+  heroTitle: text("home.hero.title", "[home.hero.title]"),
+  heroBody: text("home.hero.body", "[home.hero.body]"),
+  heroImages: [
+    image("home.hero.media.01", "[home.hero.media.01]", "wide"),
+    image("home.hero.media.02", "[home.hero.media.02]", "portrait"),
+    image("home.hero.media.03", "[home.hero.media.03]", "square"),
+    image("home.hero.media.04", "[home.hero.media.04]", "hero-wide"),
   ],
+  features: [
+    {
+      id: "home.features.01",
+      title: "[home.features.01.title]",
+      body: "[home.features.01.body]",
+    },
+    {
+      id: "home.features.02",
+      title: "[home.features.02.title]",
+      body: "[home.features.02.body]",
+    },
+    {
+      id: "home.features.03",
+      title: "[home.features.03.title]",
+      body: "[home.features.03.body]",
+    },
+    {
+      id: "home.features.04",
+      title: "[home.features.04.title]",
+      body: "[home.features.04.body]",
+    },
+    {
+      id: "home.features.05",
+      title: "[home.features.05.title]",
+      body: "[home.features.05.body]",
+    },
+    {
+      id: "home.features.06",
+      title: "[home.features.06.title]",
+      body: "[home.features.06.body]",
+    },
+  ],
+  storyTitle: text("home.story.title", "[home.story.title]"),
+  storyBody: text("home.story.body", "[home.story.body]"),
+  storyLink: link("home.story.link", "[home.story.link]", "/lessons"),
+  storyImage: image("home.story.media", "[home.story.media]", "blob-right"),
+  quote: text("home.quote.body", "[home.quote.body]"),
+  quoteAuthor: text("home.quote.author", "[home.quote.author]"),
+  quoteLink: link("home.quote.link", "[home.quote.link]", "/reviews"),
+  quoteImage: image("home.quote.media", "[home.quote.media]", "square"),
+  cta: link("home.cta.link", "[home.cta.link]", "/get-in-touch"),
 };
 
 export const lessonsPage = {
-  routeId: "page.lessons",
-  hero: {
-    title: text("lessons.hero.title", "Placeholder lessons page title", "title"),
-    body: text(
-      "lessons.hero.body",
-      "Placeholder overview for lesson format, location, schedule, or teaching model.",
-      "body",
-    ),
-    image: image("lessons.hero.media", "Lessons hero media placeholder", "wide"),
-  },
-  cards: [
+  bannerTitle: text("lessons.banner.title", "[lessons.banner.title]"),
+  introTitle: text("lessons.intro.title", "[lessons.intro.title]"),
+  introSections: [
     {
-      id: "lessons.cards.01",
-      title: text("lessons.cards.01.title", "Placeholder lesson card title 01", "title"),
-      body: text(
-        "lessons.cards.01.body",
-        "Placeholder explanation for lesson card 01.",
-        "body",
-      ),
-      iconLabel: text("lessons.cards.01.icon", "Badge placeholder 01", "label"),
+      id: "lessons.intro.block.01",
+      title: "[lessons.intro.block.01.title]",
+      bullets: [
+        "[lessons.intro.block.01.bullet.01]",
+        "[lessons.intro.block.01.bullet.02]",
+        "[lessons.intro.block.01.bullet.03]",
+      ],
     },
     {
-      id: "lessons.cards.02",
-      title: text("lessons.cards.02.title", "Placeholder lesson card title 02", "title"),
-      body: text(
-        "lessons.cards.02.body",
-        "Placeholder explanation for lesson card 02.",
-        "body",
-      ),
-      iconLabel: text("lessons.cards.02.icon", "Badge placeholder 02", "label"),
+      id: "lessons.intro.block.02",
+      title: "[lessons.intro.block.02.title]",
+      bullets: [
+        "[lessons.intro.block.02.bullet.01]",
+        "[lessons.intro.block.02.bullet.02]",
+      ],
     },
     {
-      id: "lessons.cards.03",
-      title: text("lessons.cards.03.title", "Placeholder lesson card title 03", "title"),
-      body: text(
-        "lessons.cards.03.body",
-        "Placeholder explanation for lesson card 03.",
-        "body",
-      ),
-      iconLabel: text("lessons.cards.03.icon", "Badge placeholder 03", "label"),
-    },
-  ] satisfies LessonCard[],
-  splitStories: [
-    {
-      id: "lessons.story.01",
-      eyebrow: text("lessons.story.01.eyebrow", "Placeholder story eyebrow 01", "eyebrow"),
-      title: text("lessons.story.01.title", "Placeholder story title 01", "title"),
-      body: text("lessons.story.01.body", "Placeholder body copy for story block 01.", "body"),
-      image: image("lessons.story.01.media", "Story image placeholder 01", "portrait"),
+      id: "lessons.intro.block.03",
+      title: "[lessons.intro.block.03.title]",
+      bullets: ["[lessons.intro.block.03.bullet.01]"],
     },
     {
-      id: "lessons.story.02",
-      eyebrow: text("lessons.story.02.eyebrow", "Placeholder story eyebrow 02", "eyebrow"),
-      title: text("lessons.story.02.title", "Placeholder story title 02", "title"),
-      body: text("lessons.story.02.body", "Placeholder body copy for story block 02.", "body"),
-      image: image("lessons.story.02.media", "Story image placeholder 02", "portrait"),
+      id: "lessons.intro.block.04",
+      title: "[lessons.intro.block.04.title]",
+      bullets: [
+        "[lessons.intro.block.04.bullet.01]",
+        "[lessons.intro.block.04.bullet.02]",
+      ],
     },
-  ] satisfies StoryCard[],
-  cta: {
-    title: text("lessons.cta.title", "Placeholder lesson CTA title", "title"),
-    body: text("lessons.cta.body", "Placeholder lesson CTA body text.", "body"),
-    link: link("lessons.cta.link", "Lesson CTA button placeholder", "/get-in-touch"),
-  },
+  ],
+  introClosing: text("lessons.intro.closing", "[lessons.intro.closing]"),
+  introLink: link("lessons.intro.link", "[lessons.intro.link]", "/reviews"),
+  offerCards: [
+    {
+      id: "lessons.offers.01",
+      title: "[lessons.offers.01.title]",
+      body: "[lessons.offers.01.body]",
+      price: "[lessons.offers.01.price]",
+    },
+    {
+      id: "lessons.offers.02",
+      title: "[lessons.offers.02.title]",
+      body: "[lessons.offers.02.body]",
+      price: "[lessons.offers.02.price]",
+    },
+    {
+      id: "lessons.offers.03",
+      title: "[lessons.offers.03.title]",
+      body: "[lessons.offers.03.body]",
+      price: "[lessons.offers.03.price]",
+    },
+  ],
+  goalsTitle: text("lessons.goals.title", "[lessons.goals.title]"),
+  goalsBody: text("lessons.goals.body", "[lessons.goals.body]"),
+  goalsImage: image("lessons.goals.media", "[lessons.goals.media]", "blob-left"),
+  experienceTitle: text("lessons.experience.title", "[lessons.experience.title]"),
+  experienceBody: text("lessons.experience.body", "[lessons.experience.body]"),
+  experienceImage: image("lessons.experience.media", "[lessons.experience.media]", "wide"),
+  experienceLink: link("lessons.experience.link", "[lessons.experience.link]", "/about-me"),
+  cta: link("lessons.cta.link", "[lessons.cta.link]", "/get-in-touch"),
 };
 
 export const aboutPage = {
-  routeId: "page.about",
-  hero: {
-    title: text("about.hero.title", "Placeholder about page title", "title"),
-    body: text(
-      "about.hero.body",
-      "Placeholder biography introduction. Replace this later with the real founder or artist story.",
-      "body",
-    ),
-    image: image("about.hero.media", "About hero media placeholder", "portrait"),
-  },
+  bannerTitle: text("about.banner.title", "[about.banner.title]"),
   stories: [
     {
       id: "about.stories.01",
-      eyebrow: text("about.stories.01.eyebrow", "Timeline placeholder 01", "eyebrow"),
-      title: text("about.stories.01.title", "Placeholder chapter title 01", "title"),
-      body: text("about.stories.01.body", "Placeholder biography chapter body 01.", "body"),
-      image: image("about.stories.01.media", "Biography image placeholder 01", "landscape"),
+      eyebrow: "[about.stories.01.eyebrow]",
+      title: "[about.stories.01.title]",
+      body: "[about.stories.01.body]",
+      image: image("about.stories.01.media", "[about.stories.01.media]", "blob-right"),
     },
     {
       id: "about.stories.02",
-      eyebrow: text("about.stories.02.eyebrow", "Timeline placeholder 02", "eyebrow"),
-      title: text("about.stories.02.title", "Placeholder chapter title 02", "title"),
-      body: text("about.stories.02.body", "Placeholder biography chapter body 02.", "body"),
-      image: image("about.stories.02.media", "Biography image placeholder 02", "landscape"),
+      eyebrow: "",
+      title: "[about.stories.02.title]",
+      body: "[about.stories.02.body]",
+      image: image("about.stories.02.media", "[about.stories.02.media]", "square"),
     },
     {
       id: "about.stories.03",
-      eyebrow: text("about.stories.03.eyebrow", "Timeline placeholder 03", "eyebrow"),
-      title: text("about.stories.03.title", "Placeholder chapter title 03", "title"),
-      body: text("about.stories.03.body", "Placeholder biography chapter body 03.", "body"),
-      image: image("about.stories.03.media", "Biography image placeholder 03", "landscape"),
+      eyebrow: "",
+      title: "[about.stories.03.title]",
+      body: "[about.stories.03.body]",
+      image: image("about.stories.03.media", "[about.stories.03.media]", "blob-right"),
     },
-  ] satisfies StoryCard[],
+    {
+      id: "about.stories.04",
+      eyebrow: "",
+      title: "[about.stories.04.title]",
+      body: "[about.stories.04.body]",
+      image: image("about.stories.04.media", "[about.stories.04.media]", "blob-left"),
+    },
+  ],
+  cta: link("about.cta.link", "[about.cta.link]", "/get-in-touch"),
 };
 
 export const reviewsPage = {
-  routeId: "page.reviews",
-  hero: {
-    title: text("reviews.hero.title", "Placeholder reviews page title", "title"),
-    body: text(
-      "reviews.hero.body",
-      "Placeholder introduction for social proof, testimonials, or review highlights.",
-      "body",
-    ),
-    image: image("reviews.hero.media", "Reviews hero media placeholder", "wide"),
-  },
-  testimonials: [
+  bannerTitle: text("reviews.banner.title", "[reviews.banner.title]"),
+  sectionTitle: text("reviews.section.title", "[reviews.section.title]"),
+  quotes: [
     {
-      id: "reviews.testimonials.01",
-      quote: text("reviews.testimonials.01.quote", "Placeholder testimonial quote 01.", "quote"),
-      author: text("reviews.testimonials.01.author", "Placeholder reviewer 01", "label"),
-      detail: text(
-        "reviews.testimonials.01.detail",
-        "Placeholder reviewer detail 01",
-        "body",
-      ),
+      id: "reviews.quotes.01",
+      author: "[reviews.quotes.01.author]",
+      body: "[reviews.quotes.01.body]",
     },
     {
-      id: "reviews.testimonials.02",
-      quote: text("reviews.testimonials.02.quote", "Placeholder testimonial quote 02.", "quote"),
-      author: text("reviews.testimonials.02.author", "Placeholder reviewer 02", "label"),
-      detail: text(
-        "reviews.testimonials.02.detail",
-        "Placeholder reviewer detail 02",
-        "body",
-      ),
+      id: "reviews.quotes.02",
+      author: "[reviews.quotes.02.author]",
+      body: "[reviews.quotes.02.body]",
     },
     {
-      id: "reviews.testimonials.03",
-      quote: text("reviews.testimonials.03.quote", "Placeholder testimonial quote 03.", "quote"),
-      author: text("reviews.testimonials.03.author", "Placeholder reviewer 03", "label"),
-      detail: text(
-        "reviews.testimonials.03.detail",
-        "Placeholder reviewer detail 03",
-        "body",
-      ),
+      id: "reviews.quotes.03",
+      author: "[reviews.quotes.03.author]",
+      body: "[reviews.quotes.03.body]",
     },
-  ] satisfies TestimonialCard[],
+    {
+      id: "reviews.quotes.04",
+      author: "[reviews.quotes.04.author]",
+      body: "[reviews.quotes.04.body]",
+    },
+    {
+      id: "reviews.quotes.05",
+      author: "[reviews.quotes.05.author]",
+      body: "[reviews.quotes.05.body]",
+    },
+    {
+      id: "reviews.quotes.06",
+      author: "[reviews.quotes.06.author]",
+      body: "[reviews.quotes.06.body]",
+    },
+  ],
+  cta: link("reviews.cta.link", "[reviews.cta.link]", "/get-in-touch"),
 };
 
 export const livePage = {
-  routeId: "page.live",
-  hero: {
-    title: text("live.hero.title", "Placeholder live page title", "title"),
-    body: text(
-      "live.hero.body",
-      "Placeholder page copy for upcoming performances, sessions, classes, or live events.",
-      "body",
-    ),
-  },
+  heading: text("live.heading", "[live.heading]"),
   events: [
     {
       id: "live.events.01",
-      name: text("live.events.01.name", "Placeholder event name 01", "title"),
-      date: text("live.events.01.date", "Placeholder event date 01", "label"),
-      venue: text("live.events.01.venue", "Placeholder venue 01", "label"),
-      address: text("live.events.01.address", "Placeholder address 01", "body"),
+      name: "[live.events.01.name]",
+      date: "[live.events.01.date]",
+      venue: "[live.events.01.venue]",
+      address: "[live.events.01.address]",
     },
     {
       id: "live.events.02",
-      name: text("live.events.02.name", "Placeholder event name 02", "title"),
-      date: text("live.events.02.date", "Placeholder event date 02", "label"),
-      venue: text("live.events.02.venue", "Placeholder venue 02", "label"),
-      address: text("live.events.02.address", "Placeholder address 02", "body"),
+      name: "[live.events.02.name]",
+      date: "[live.events.02.date]",
+      venue: "[live.events.02.venue]",
+      address: "[live.events.02.address]",
     },
-  ] satisfies EventCard[],
-  recapTitle: text("live.recap.title", "Placeholder archive or highlights title", "title"),
-  videos: [
-    video("live.videos.01", "Placeholder YouTube embed 01", "live.gallery.01"),
-    video("live.videos.02", "Placeholder YouTube embed 02", "live.gallery.02"),
+    {
+      id: "live.events.03",
+      name: "[live.events.03.name]",
+      date: "[live.events.03.date]",
+      venue: "[live.events.03.venue]",
+      address: "[live.events.03.address]",
+    },
   ],
-  gallery: [
-    image("live.gallery.01", "Live gallery placeholder 01", "wide"),
-    image("live.gallery.02", "Live gallery placeholder 02", "wide"),
+  highlightsTitle: text("live.highlights.title", "[live.highlights.title]"),
+  videos: [
+    {
+      id: "live.videos.01",
+      title: "[live.videos.01.title]",
+      youtubeUrl: "[live.videos.01.youtube_url]",
+    },
+    {
+      id: "live.videos.02",
+      title: "[live.videos.02.title]",
+      youtubeUrl: "[live.videos.02.youtube_url]",
+    },
   ],
 };
 
 export const contactPage = {
-  routeId: "page.contact",
-  hero: {
-    title: text("contact.hero.title", "Placeholder contact page title", "title"),
-    body: text(
-      "contact.hero.body",
-      "Placeholder booking or contact invitation copy.",
-      "body",
-    ),
-    image: image("contact.hero.media", "Contact hero media placeholder", "portrait"),
-  },
-  fields: [
+  bannerTitle: text("contact.banner.title", "[contact.banner.title]"),
+  intro: [
+    text("contact.intro.01", "[contact.intro.01]"),
+    text("contact.intro.02", "[contact.intro.02]"),
+    text("contact.intro.03", "[contact.intro.03]"),
+  ],
+  formFields: [
+    { id: "contact.form.name", label: "Name *", placeholder: "[contact.form.name]" },
+    { id: "contact.form.phone", label: "Phone Number", placeholder: "[contact.form.phone]" },
+    { id: "contact.form.email", label: "Email *", placeholder: "[contact.form.email]" },
     {
-      id: "contact.form.name",
-      label: text("contact.form.name.label", "Placeholder field label: name", "label"),
-      placeholder: "[contact.form.name.placeholder]",
-      type: "text",
+      id: "contact.form.topic",
+      label: "What would you like to do?",
+      placeholder: "[contact.form.topic]",
     },
-    {
-      id: "contact.form.email",
-      label: text("contact.form.email.label", "Placeholder field label: email", "label"),
-      placeholder: "[contact.form.email.placeholder]",
-      type: "email",
-    },
-    {
-      id: "contact.form.phone",
-      label: text("contact.form.phone.label", "Placeholder field label: phone", "label"),
-      placeholder: "[contact.form.phone.placeholder]",
-      type: "tel",
-    },
-    {
-      id: "contact.form.message",
-      label: text("contact.form.message.label", "Placeholder field label: message", "label"),
-      placeholder: "[contact.form.message.placeholder]",
-      type: "textarea",
-    },
-  ] satisfies ContactField[],
-  formSubmit: text("contact.form.submit", "Placeholder submit button", "button"),
-  socialTitle: text("contact.social.title", "Placeholder social section title", "title"),
+  ],
+  submit: text("contact.form.submit", "[contact.form.submit]"),
+  infoTitle: text("contact.info.title", "[contact.info.title]"),
+  infoPhone: text("contact.info.phone", "[contact.info.phone]"),
+  infoEmail: text("contact.info.email", "[contact.info.email]"),
+  infoInstagram: link("contact.info.instagram", "Instagram", "/connect/instagram"),
+  infoFacebook: link("contact.info.facebook", "Facebook", "/connect/facebook"),
+  portrait: image("contact.info.media", "[contact.info.media]", "contact-tall"),
 };
 
 export const connectPages = {
   instagram: {
-    routeId: "connect.instagram",
-    title: text("connect.instagram.title", "Placeholder internal social destination", "title"),
-    body: text(
-      "connect.instagram.body",
-      "This page currently stands in for an external social link. You can later replace it with a direct outbound URL in the content config.",
-      "body",
-    ),
-    link: footerLinks[0],
+    title: text("connect.instagram.title", "[connect.instagram.title]"),
+    body: text("connect.instagram.body", "[connect.instagram.body]"),
+    link: footerContent.instagram,
   },
   facebook: {
-    routeId: "connect.facebook",
-    title: text("connect.facebook.title", "Placeholder internal social destination", "title"),
-    body: text(
-      "connect.facebook.body",
-      "This page currently stands in for an external social link. You can later replace it with a direct outbound URL in the content config.",
-      "body",
-    ),
-    link: footerLinks[1],
+    title: text("connect.facebook.title", "[connect.facebook.title]"),
+    body: text("connect.facebook.body", "[connect.facebook.body]"),
+    link: footerContent.facebook,
   },
   "media-library": {
-    routeId: "connect.media_library",
-    title: text("connect.media_library.title", "Placeholder internal resource destination", "title"),
-    body: text(
-      "connect.media_library.body",
-      "This page currently stands in for a document, drive, or booking resource. Swap the link later when the real external destination is ready.",
-      "body",
-    ),
-    link: footerLinks[2],
+    title: text("connect.media_library.title", "[connect.media_library.title]"),
+    body: text("connect.media_library.body", "[connect.media_library.body]"),
+    link: footerContent.drive,
   },
 };

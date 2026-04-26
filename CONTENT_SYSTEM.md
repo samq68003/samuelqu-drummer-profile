@@ -18,7 +18,7 @@ This project is built so text, images, video links, and outbound links can all b
 Example:
 
 ```ts
-title: text("home.hero.title", "Placeholder hero title with editable identifier", "title")
+heroTitle: text("home.hero.title", "[home.hero.title]")
 ```
 
 Replace the second argument with your real text.
@@ -33,11 +33,17 @@ Each image token currently uses a rendered placeholder card.
 Example:
 
 ```ts
-mediaPrimary: {
-  id: "home.hero.media.primary",
-  alt: "Primary hero image placeholder",
-  ratio: "portrait",
-  src: "/uploads/home-hero-primary.jpg",
+image("home.hero.media.01", "[home.hero.media.01]", "wide")
+```
+
+can become:
+
+```ts
+{
+  id: "home.hero.media.01",
+  label: "[home.hero.media.01]",
+  shape: "wide",
+  src: "/uploads/home-hero-01.jpg",
 }
 ```
 
@@ -53,17 +59,20 @@ Video placeholders are defined in `livePage.videos`.
 Example:
 
 ```ts
-video("live.videos.01", "Placeholder YouTube embed 01", "live.gallery.01")
+{
+  id: "live.videos.01",
+  title: "[live.videos.01.title]",
+  youtubeUrl: "[live.videos.01.youtube_url]",
+}
 ```
 
-can become a full object with:
+can become:
 
 ```ts
 {
   id: "live.videos.01",
   title: "Live session clip",
   youtubeUrl: "https://www.youtube.com/watch?v=example",
-  posterImageId: "live.gallery.01",
 }
 ```
 
@@ -80,22 +89,13 @@ When you're ready to go live:
 Example:
 
 ```ts
-link(
-  "footer.social.instagram",
-  "Instagram placeholder",
-  "/connect/instagram",
-  "https://instagram.com/your-account",
-)
+link("footer.social.instagram", "Instagram", "/connect/instagram", "https://instagram.com/your-account")
 ```
 
 Change to:
 
 ```ts
-link(
-  "footer.social.instagram",
-  "Instagram",
-  "https://instagram.com/your-account",
-)
+link("footer.social.instagram", "Instagram", "https://instagram.com/your-account")
 ```
 
-If you want, I can also convert the `LinkButton` and `InlineLink` components later so they automatically detect external URLs and render `<a target=\"_blank\" rel=\"noreferrer\">`.
+If you want, I can also convert the current button and footer link rendering so external URLs automatically open with a normal `<a>` tag instead of using an internal placeholder route.
