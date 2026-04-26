@@ -43,3 +43,14 @@ The project includes `public/_redirects` with:
 ```
 
 That keeps direct route visits working for this SPA on Cloudflare Pages.
+
+## Maintainer handoff
+
+For a new Windows-based maintainer, start here:
+
+- `WINDOWS_HANDOFF_GUIDE.md`
+- `scripts/windows-bootstrap.ps1`
+
+This repo also includes a project-specific Codex skill:
+
+- `.codex/skills/samuelqu-site-maintainer/SKILL.md`

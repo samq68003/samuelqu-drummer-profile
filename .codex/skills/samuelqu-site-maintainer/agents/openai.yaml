@@ -1,0 +1,4 @@
+interface:
+  display_name: "Samuel Qu Site Maintainer"
+  short_description: "Maintain this site, its content ids, SSH workflow, and Cloudflare Pages deploys"
+  default_prompt: "Use $samuelqu-site-maintainer to update this repository, preserve identifier-based content editing, and verify GitHub Actions plus Cloudflare Pages deployment after pushes."
