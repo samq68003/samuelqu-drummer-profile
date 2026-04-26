@@ -259,21 +259,25 @@ img {
 .home-media--a {
   grid-column: 1 / span 2;
   grid-row: 1;
+  height: 136px;
 }
 
 .home-media--b {
   grid-column: 3;
   grid-row: 1 / span 2;
+  height: 335px;
 }
 
 .home-media--c {
   grid-column: 1 / span 2;
   grid-row: 2 / span 2;
+  height: 328px;
 }
 
 .home-media--d {
   grid-column: 3;
   grid-row: 3;
+  height: 129px;
 }
 
 .home-hero__copy {
@@ -345,6 +349,17 @@ img {
 .placeholder-image.contact-tall {
   aspect-ratio: 0.72;
   border-radius: 18% 34% 18% 18%;
+}
+
+.home-hero__media .placeholder-image {
+  min-height: 0;
+}
+
+.home-hero__media .home-media--a,
+.home-hero__media .home-media--b,
+.home-hero__media .home-media--c,
+.home-hero__media .home-media--d {
+  aspect-ratio: auto;
 }
 
 .home-features {
