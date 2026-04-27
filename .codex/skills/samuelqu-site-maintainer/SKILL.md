@@ -1,6 +1,6 @@
 ---
 name: samuelqu-site-maintainer
-description: Use when maintaining the Samuel Qu drummer profile website in this repository, especially for placeholder content updates, layout edits, GitHub SSH setup, Cloudflare Pages deployment, workflow repair, Windows maintainer handoff, and verifying GitHub Actions after pushes.
+description: Use when maintaining the Samuel Qu drummer profile website in this repository, especially for standard local web development, placeholder content updates, layout edits, local testing, pushing changes, and verifying the GitHub Actions to Cloudflare Pages deployment workflow.
 ---
 
 # Samuel Qu Site Maintainer
@@ -14,9 +14,8 @@ This skill covers:
 - content updates through stable identifiers
 - layout and styling changes
 - image and YouTube placeholder replacement
-- GitHub SSH usage for this repo
+- standard local development and testing
 - Cloudflare Pages workflow maintenance
-- Windows maintainer onboarding
 - push and post-push deployment verification
 
 ## Repository map
@@ -28,8 +27,6 @@ Primary files:
 - `src/index.css`: layout, spacing, typography, responsive behavior
 - `src/components/ContentBlocks.tsx`: placeholder renderers and shared content blocks
 - `.github/workflows/deploy-cloudflare-pages.yml`: Cloudflare Pages deploy workflow
-- `WINDOWS_HANDOFF_GUIDE.md`: maintainer onboarding for Windows
-- `scripts/windows-bootstrap.ps1`: helper setup script for a new Windows maintainer
 
 ## Content workflow
 
@@ -51,25 +48,15 @@ For visual or structural edits:
 3. Avoid introducing a new visual system when the request is to replicate or refine the existing design.
 4. Validate desktop and mobile behavior after editing layout CSS.
 
-## Git and SSH rules
+## Local development workflow
 
-This repo is expected to push through GitHub SSH, not by embedding credentials in tracked files.
+Use this as the default execution order:
 
-Credential bundle expectations:
-
-- the transfer bundle must stay outside the repo
-- the SSH private key file is `github_access_ed25519`
-- the bundle should include `.env.handoff` for local secret transfer
-
-On macOS, use a one-off `GIT_SSH_COMMAND` if needed.
-
-On Windows, prefer:
-
-- copy the SSH key into `~/.ssh/github_access_ed25519`
-- add a `Host github.com` block in `~/.ssh/config`
-- use `scripts/windows-bootstrap.ps1` after clone
-
-Never commit keys, tokens, or local handoff files.
+1. Make the requested content, layout, or component changes.
+2. Run `pnpm lint`.
+3. Run `pnpm build`.
+4. If the UI changed materially, run local preview with `pnpm dev` or `pnpm preview` and inspect the result.
+5. Commit and push only after local checks pass, unless the user explicitly asks otherwise.
 
 ## Cloudflare Pages workflow
 
@@ -84,12 +71,6 @@ Expected GitHub secrets:
 - `CLOUDFLARE_API_TOKEN`
 - `CLOUDFLARE_ACCOUNT_ID`
 - `CLOUDFLARE_PAGES_PROJECT`
-
-Known project values:
-
-- Pages project: `samuelqu-org`
-- Cloudflare account id: `e04c2a92f66fb33c63d7666c38ea38dd`
-- Zone name: `samuelqu.org`
 
 If deployment stops triggering, check whether `.github/workflows/deploy-cloudflare-pages.yml` was removed or broken by a force push.
 
@@ -116,19 +97,10 @@ Useful checks:
 
 Do not stop at "push succeeded" if the user asked for deployment help. Follow through until the workflow state is known.
 
-## Windows maintainer handoff
-
-When helping a Windows maintainer:
-
-1. Point them to `WINDOWS_HANDOFF_GUIDE.md`.
-2. Use `scripts/windows-bootstrap.ps1` for local setup after clone.
-3. Assume the preferred transfer bundle path is `C:\CodexTransfer\music-website-transfer-bundle` unless the user says otherwise.
-4. If `.env.handoff` is missing, stop and ask for the real secrets instead of guessing.
-
 ## Response expectations for future agents
 
 When using this skill:
 
 - be explicit about which identifiers, files, and workflow steps changed
-- mention whether lint, build, push, and workflow verification were completed
+- mention whether local test, lint, build, push, and workflow verification were completed
 - if deployment failed, report the failing step and the concrete reason
