@@ -59,7 +59,7 @@ export const homePage = {
   heroBody: text("home.hero.body", "[home.hero.body]"),
   heroImages: [
     image("home.hero.media.01", "[home.hero.media.01]", "wide"),
-    image("home.hero.media.02", "[home.hero.media.02]", "portrait"),
+    { ...image("home.hero.media.02", "[home.hero.media.02]", "portrait"), src: "/uploads/home-hero-media-02.jpg" },
     image("home.hero.media.03", "[home.hero.media.03]", "square"),
     image("home.hero.media.04", "[home.hero.media.04]", "hero-wide"),
   ],
